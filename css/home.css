@@ -1,0 +1,24 @@
+
+
+.container-fluid{
+	width: 200px;
+}
+
+.title{
+	text-align:center;
+	/*font-family:"Times New Roman";*/
+	/*color: #ff0000;*/
+}
+
+.subtitle{
+	text-align:center;
+	font-family:"Droid Serif";
+	color: grey;
+	font-style: italic;
+}
+
+.image {
+	width: 35%;
+	height: 35%;
+	border-radius: 80%;
+}

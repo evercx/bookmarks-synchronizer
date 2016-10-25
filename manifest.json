@@ -1,0 +1,18 @@
+{
+	"name": "EverlastingBookmarks",
+	"version": "1.0",
+	"description": "A bookmarks synchronizer.",
+	"permissions": [
+	    "bookmarks",
+	    "http://*/"
+	  ],
+	"icons": { "128": "bm.png" },
+	"background": {
+		"page": "home.html"
+	},
+	"browser_action": {
+	    "default_icon": "bm.png", // optional 
+	    "default_popup": "home.html"        // optional 
+  	},
+	"manifest_version": 2
+}
