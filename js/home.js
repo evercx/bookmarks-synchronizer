@@ -118,67 +118,67 @@ function addThirdBookMarks(bm,currentbm){
 }
 
 
-function travelAllBookMarks2(bm,parentId){
-	
-	if(typeof(parentId)==="undefined"){
-		for(var i = 0; i < bm.length; i++){
-			if(bm[i].hasOwnProperty('children')){
-				var o = {
-					parentId:'1',
-					index:bm[i].index,
-					title:bm[i].title
-				}
-				
-				globalChilden = bm;
-				(function(i){
-					chrome.bookmarks.create(o,function(data){
-						console.log(i);
-						console.log(globalChilden[i]);
-						travelAllBookMarks(globalChilden[i].children,data.id)
-					});
-
-				})(i)
-
-			}else{
-				var o = {
-					parentId:'1',
-					index:bm[i].index,
-					title:bm[i].title,
-					url:bm[i].url
-				}
-				chrome.bookmarks.create(o);
-			}
-		}
-	}else{
-		for(var i = 0; i < bm.length; i++){
-			if(bm[i].hasOwnProperty('children')){
-				var o = {
-					parentId:parentId,
-					index:bm[i].index,
-					title:bm[i].title
-				}
-				
-				globalChilden = bm;
-				(function(i){
-					chrome.bookmarks.create(o,function(data){
-						// console.log(i);
-						// console.log(globalChilden[i]);
-						travelAllBookMarks(globalChilden[i].children,data.id)
-					});
-
-				})(i)
-				
-			}else{
-				var o = {
-					parentId:parentId,
-					index:bm[i].index,
-					title:bm[i].title,
-					url:bm[i].url
-				}
-				chrome.bookmarks.create(o);
-
-			}
-		}
-	}
-	return;
-}
+// function travelAllBookMarks2(bm,parentId){
+//
+// 	if(typeof(parentId)==="undefined"){
+// 		for(var i = 0; i < bm.length; i++){
+// 			if(bm[i].hasOwnProperty('children')){
+// 				var o = {
+// 					parentId:'1',
+// 					index:bm[i].index,
+// 					title:bm[i].title
+// 				}
+//
+// 				globalChilden = bm;
+// 				(function(i){
+// 					chrome.bookmarks.create(o,function(data){
+// 						console.log(i);
+// 						console.log(globalChilden[i]);
+// 						travelAllBookMarks(globalChilden[i].children,data.id)
+// 					});
+//
+// 				})(i)
+//
+// 			}else{
+// 				var o = {
+// 					parentId:'1',
+// 					index:bm[i].index,
+// 					title:bm[i].title,
+// 					url:bm[i].url
+// 				}
+// 				chrome.bookmarks.create(o);
+// 			}
+// 		}
+// 	}else{
+// 		for(var i = 0; i < bm.length; i++){
+// 			if(bm[i].hasOwnProperty('children')){
+// 				var o = {
+// 					parentId:parentId,
+// 					index:bm[i].index,
+// 					title:bm[i].title
+// 				}
+//
+// 				globalChilden = bm;
+// 				(function(i){
+// 					chrome.bookmarks.create(o,function(data){
+// 						// console.log(i);
+// 						// console.log(globalChilden[i]);
+// 						travelAllBookMarks(globalChilden[i].children,data.id)
+// 					});
+//
+// 				})(i)
+//
+// 			}else{
+// 				var o = {
+// 					parentId:parentId,
+// 					index:bm[i].index,
+// 					title:bm[i].title,
+// 					url:bm[i].url
+// 				}
+// 				chrome.bookmarks.create(o);
+//
+// 			}
+// 		}
+// 	}
+// 	return;
+// }
