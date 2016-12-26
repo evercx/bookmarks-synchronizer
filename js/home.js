@@ -5,15 +5,28 @@ var globalChilden = {};
 var globalFlag = "true";
 $(function() {
 	$("#result").text("");
-
+	updateList();
 });
 
-
+var updateList = function(){
+	$.ajax({
+		url:address.listURL,
+		type:"GET",
+		success:function(data){
+			$("#list").empty();
+			for(var i = data.list.length-1;i>=0;i--){
+				var optionString = '<option value='+data.list[i]+'>'+data.list[i]+'</option>';
+				$("#list").append(optionString);
+			}
+		}
+	})
+}
 
 $("#backup").click(function(){
 	chrome.bookmarks.getTree(function callback(data){
 		var postData = {
-			bookmarks:data[0].children[0]
+			bookmarks:data[0].children[0],
+			versionString:getVersionString()
 		}
 		//var bm = allmarks.children;
 		$.ajax({
@@ -23,24 +36,24 @@ $("#backup").click(function(){
 			data:JSON.stringify(postData),
 			success:function(data){
 				if(data.status === "200"){
+					updateList();
 					$("#result").text("    备份成功");
+					$("#result").attr("name",postData.versionString);
 				}
 			}
 		})
-		//deleteAllBookMarks();
 	});
-
-
-
 })
 
 $("#recovery").click(function(){
-
+	var postData = {
+		versionString:$("#list").val()
+	}
 	$.ajax({
 		url:address.recoveryURL,
-		type:"get",
-		// contentType: "application/json",
-		// data:JSON.stringify(postData),
+		type:"POST",
+		contentType: "application/json",
+		data:JSON.stringify(postData),
 		success:function(data){
 			console.log(data);
 			if(data.status === "200"){
@@ -56,6 +69,7 @@ $("#recovery").click(function(){
 						var currentbm2 = data2[0].children[0].children;
 						addThirdBookMarks(responseBookmarks.children,data2[0].children[0].children);
 						$("#result").text("   还原成功");
+						$("#result").attr("name",postData.versionString);
 					})
 				});
 			}
@@ -117,68 +131,9 @@ function addThirdBookMarks(bm,currentbm){
 	}
 }
 
-
-// function travelAllBookMarks2(bm,parentId){
-//
-// 	if(typeof(parentId)==="undefined"){
-// 		for(var i = 0; i < bm.length; i++){
-// 			if(bm[i].hasOwnProperty('children')){
-// 				var o = {
-// 					parentId:'1',
-// 					index:bm[i].index,
-// 					title:bm[i].title
-// 				}
-//
-// 				globalChilden = bm;
-// 				(function(i){
-// 					chrome.bookmarks.create(o,function(data){
-// 						console.log(i);
-// 						console.log(globalChilden[i]);
-// 						travelAllBookMarks(globalChilden[i].children,data.id)
-// 					});
-//
-// 				})(i)
-//
-// 			}else{
-// 				var o = {
-// 					parentId:'1',
-// 					index:bm[i].index,
-// 					title:bm[i].title,
-// 					url:bm[i].url
-// 				}
-// 				chrome.bookmarks.create(o);
-// 			}
-// 		}
-// 	}else{
-// 		for(var i = 0; i < bm.length; i++){
-// 			if(bm[i].hasOwnProperty('children')){
-// 				var o = {
-// 					parentId:parentId,
-// 					index:bm[i].index,
-// 					title:bm[i].title
-// 				}
-//
-// 				globalChilden = bm;
-// 				(function(i){
-// 					chrome.bookmarks.create(o,function(data){
-// 						// console.log(i);
-// 						// console.log(globalChilden[i]);
-// 						travelAllBookMarks(globalChilden[i].children,data.id)
-// 					});
-//
-// 				})(i)
-//
-// 			}else{
-// 				var o = {
-// 					parentId:parentId,
-// 					index:bm[i].index,
-// 					title:bm[i].title,
-// 					url:bm[i].url
-// 				}
-// 				chrome.bookmarks.create(o);
-//
-// 			}
-// 		}
-// 	}
-// 	return;
-// }
+var getVersionString = function(){
+	//以日期代表书签版本号
+	var d = new Date();
+	var resultString = d.getFullYear().toString() + (d.getMonth()+1).toString() + d.getDate();
+	return resultString;
+}
