@@ -1,5 +1,5 @@
 var address = {
-	backupURL:"http://42.96.142.224:4137/api/backupBookmarks",
-	recoveryURL:"http://42.96.142.224:4137/api/recoveryBookmarks",
-	listURL:"http://42.96.142.224:4137/api/bookmarksList",
+	backupURL:"http://121.42.236.250:4137/api/backupBookmarks",
+	recoveryURL:"http://121.42.236.250:4137/api/recoveryBookmarks",
+	listURL:"http://121.42.236.250:4137/api/bookmarksList",
 }
