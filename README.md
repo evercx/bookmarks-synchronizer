@@ -12,7 +12,7 @@
 
 插件主要提供备份与还原功能。以日期为书签版本，向服务器端进行书签信息的交互操作。截图如下：
 
-<img src="./bm.jpg" width="150px" height="250" />
+<img src="./bm.png" width="150px" height="250" />
 
 ## 已知BUG
 
